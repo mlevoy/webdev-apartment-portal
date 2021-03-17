@@ -1,0 +1,132 @@
+<div *ngIf="pageLoad && userLoad" class="container-fluid">
+  <app-header></app-header>
+  <div>
+    <div class="filters row w-75 flex">
+      <div class="input-group mb-3 col-auto">
+        <div class="input-group-prepend">
+          <label class="input-group-text">State</label>
+        </div>
+        <select class="custom-select" [(ngModel)]="selectedState" (ngModelChange)="onStateChange()">
+          <option *ngFor="let state of statesList"
+                  [ngValue]="state.abbreviation">{{state.name}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="filters row w-75 flex">
+      <div class="input-group mb-3 col-auto">
+        <div class="input-group-prepend">
+          <label class="input-group-text">City</label>
+        </div>
+        <select class="custom-select" [(ngModel)]="selectedCity" [disabled]="!selectedState"
+                (ngModelChange)="onCityChanged()">
+          <option *ngFor="let city of cityList" [ngValue]="city">{{city}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="filters row w-75 flex">
+      <div class="input-group mb-3 col-auto">
+        <div class="input-group-prepend">
+          <label class="input-group-text">Neighbourhood</label>
+        </div>
+        <select class="custom-select" [(ngModel)]="selectedNeighbourhood"
+                [disabled]="!selectedCity">
+          <option *ngFor="let neighbourhood of neighbourhoodList"
+                  [ngValue]="neighbourhood.name">{{neighbourhood.name}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="col-auto pl-0 pb-0">
+    <button class="btn btn-search btn-secondary" type="button" (click)="searchProperties()">
+      Search
+    </button>
+  </div>
+
+  <hr class="p-0"/>
+  <div *ngIf="user.favouriteProperties.length!==0" class="mb-3">
+    <h4 class="col-12 mt-0 pt-0 pb-2">Favourites</h4>
+    <app-favourites (clickevent)=onMoreInfoClick($event)
+                    (favEvent)=onFavourite($event)
+                    [favouriteProperties]="user.favouriteProperties"></app-favourites>
+  </div>
+  <div class="filters col-12 row flex">
+    <h4 class="col-12"> Filter Search Results</h4>
+    <div class="col-7 row">
+      <div class="col-auto"><input type="text" class="form-control-md" [(ngModel)]="searchText"
+                                   placeholder="Boston,MA" (ngModelChange)="filterList()"/></div>
+      <div class="row col-auto ml-0">
+        <label> No. Of Beds</label>
+        <div ngbDropdown class="col-auto">
+          <div class="d-inline-block">
+            <button class="btn btn-filter btn-secondaryy" id="dropdownBasic1"
+                    ngbDropdownToggle>{{bedFilter}}</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem (click)="setBedFilter(0)">0</button>
+              <button ngbDropdownItem (click)="setBedFilter(1)">1</button>
+              <button ngbDropdownItem (click)="setBedFilter(2)">2</button>
+              <button ngbDropdownItem (click)="setBedFilter(3)">3</button>
+              <button ngbDropdownItem (click)="setBedFilter(4)">4</button>
+              <button ngbDropdownItem (click)="setBedFilter('5+')">5+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row col-auto ml-0">
+        <label> No. Of Baths</label>
+        <div ngbDropdown class="col-auto">
+          <div class="d-inline-block">
+            <button class="btn btn-filter btn-secondaryy" id="dropdownBasic2"
+                    ngbDropdownToggle>{{bathFilter}}</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+              <button ngbDropdownItem (click)="setBathFilter(0)">0</button>
+              <button ngbDropdownItem (click)="setBathFilter(1)">1</button>
+              <button ngbDropdownItem (click)="setBathFilter(2)">2</button>
+              <button ngbDropdownItem (click)="setBathFilter('3+')">3+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="displayList && displayList.length > 0"
+         class="filters d-flex justify-content-end col-5 ml-4 align-items-center">
+      <button class="btn btn-success mr-1" (click)="onBack()" [disabled]="start == 0">
+        <i class="fa fa-chevron-left"></i>
+      </button>
+      <label>{{start + 1}} - {{end}} of {{displayList.length}}</label>
+      <button class="btn btn-success ml-1" (click)="onNext()"
+              [disabled]="end == displayList.length">
+        <i class="fa fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+  <div class="listings  row ">
+    <div *ngFor="let property of displayList | slice:start:end ; let i = index;"
+         class="card col-sm-3 ">
+
+      <img class="card-img-top rounded " src="../../assets/img/img{{i%8}}.jpg" alt="Card image cap">
+
+
+      <div class="card-body listing-style  p-0">
+        <div class="card-title pb-0"><h4 class="card-title">${{property.amount | number}}
+          <span class="favourite-span pull-right">
+        <i (click)="onFavourite(property.id)" class=" fa "
+           [class]="{'fa-heart-o': !isPropertyPresent(property.id), 'fa-heart': isPropertyPresent(property.id) }"></i>
+      </span>
+        </h4></div>
+        <ul class="listing-style list-group list-group-horizontal-sm text-muted">
+          <li class="list-group-item border-0">{{property.bed}}  <i class="fa fa-bed"></i></li>
+          <li class="list-group-item border-0">{{property.bath}} <i class="fa fa-bath"></i></li>
+          <li class="list-group-item border-0">{{property.size}} Sqft
+        </ul>
+        <p class="card-text">{{property.address}}</p>
+      </div>
+      <div class="card-footer bg-transparent">
+        <button (click)="onMoreInfoClick(property.id)"
+                class="btn btn-request btn-primary col-12"><i
+          class="fa fa-envelope-o"></i> More Info
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

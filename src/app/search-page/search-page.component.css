@@ -1,0 +1,80 @@
+html{
+  -moz-transform: scale(0.75);
+}
+
+.listings {
+    top: 20px;
+    position: relative;
+}
+
+.fa-search {
+    color: limegreen;
+}
+.filters{
+  font-size: 20px;
+}
+.heading {
+    font-family: 'Lobster', cursive;
+    color: limegreen;
+}
+.logo{
+  width: 70px;
+  height: auto;
+}
+
+body {
+    padding: 5px;
+    font-family: 'Martel', serif;
+
+
+}
+.card{
+	border-bottom-color: limegreen;
+	border-bottom-width: thick;
+
+
+}
+.fa-heart{
+  color: red;
+  cursor: pointer;
+}
+
+.fa-heart-o{
+  color: red;
+  cursor: pointer;
+}
+
+.favourite-span:hover .far,
+.favourite-span .fas {
+  display: none;
+}
+.favourite-span:hover .fas {
+  display: inline;
+}
+
+.filters .btn-filter {
+    background: white;
+    color: forestgreen;
+    border-color: forestgreen;
+}
+
+.btn-search {
+    background: limegreen;
+    border-color: limegreen;
+}
+
+.btn-request{
+  background: forestgreen;
+  border-color: forestgreen;
+}
+.card .listing-style{
+	font-size: 20px;
+
+
+}
+img{
+    height:50%;
+    padding: 4px;
+    border-radius: 10%;
+}
+

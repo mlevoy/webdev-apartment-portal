@@ -1,0 +1,62 @@
+<div class="container-fluid">
+<div class="border-bottom my-3">
+  <h1 class="text-center"><a class="text-decoration-none heading" routerLink="/"><img class="logo" src="../../assets/img/logo.png"/>
+    HouseHunters.com</a></h1>
+</div>
+</div>
+<div class="container">
+  <div *ngIf="status==400" class="alert alert-danger" role="alert">
+    Incorrect password, please try again!
+  </div>
+  <div *ngIf="status==500" class="alert alert-danger" role="alert">
+    User could not be found!
+  </div>
+    <h1>Sign In</h1>
+    <form name="loginForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group row">
+            <label for="userName" class="col-sm-2 col-form-label">
+                Username </label>
+            <div class="col-sm-10">
+                <input class="form-control"
+                       id="userName"
+                       formControlName="userName"
+                       placeholder="Alice">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="password" class="col-sm-2 col-form-label">
+                Password </label>
+            <div class="col-sm-10">
+                <input type="password"
+                       formControlName="password"
+                       class="form-control"
+                       id="password" placeholder="123qwe#$%">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <button type="submit"
+                        class="btn btn-login btn-secondary btn-block"
+                        [disabled]="!loginForm.valid">
+                        Sign in
+                </button>
+                <button
+                        type="button"
+                        class="btn btn-cancel btn-secondary btn-block"
+                        routerLink="/search">
+                    Cancel
+                </button>
+                <div class="row">
+                    <div class="col-6">
+<!--                        <a href="#" id="forgotPassword">Forgot Password?</a>-->
+                    </div>
+                    <div class="col-6">
+                        <a routerLink="/register" id="register" class="float-right">Sign up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+

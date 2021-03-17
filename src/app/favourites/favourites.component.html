@@ -1,0 +1,28 @@
+<div *ngIf="loadFlag" class="listings  col-12 pt-0 row pb-4 ">
+
+  <div *ngFor="let property of propertyDetails  ; let i = index;"
+       class="card col-sm-3 ">
+    <img class="card-img-top rounded " src="../../assets/img/img{{i%8}}.jpg" alt="Card image cap">
+
+
+    <div class="card-body listing-style  p-0">
+      <div class="card-title pb-0"><h4 class="card-title">${{property.amount | number}}
+        <span class="favourite-span pull-right">
+        <i (click)="onFavourite(property.id)" class=" fa fa-heart"></i>
+      </span>
+      </h4></div>
+      <ul class="listing-style list-group list-group-horizontal-sm text-muted">
+        <li class="list-group-item border-0">{{property.bed}}  <i class="fa fa-bed"></i></li>
+        <li class="list-group-item border-0">{{property.bath}} <i class="fa fa-bath"></i>
+        </li>
+        <li class="list-group-item border-0">{{property.size}} Sqft
+      </ul>
+      <p class="card-text">{{property.address}} {{property.state}} {{property.city}} {{property.postal}}</p>
+    </div>
+    <div class="card-footer bg-transparent">
+      <button class="btn btn-request btn-primary col-12" (click)="onMoreInfo(property.id)"><i
+        class="fa fa-envelope-o"></i> More Info
+      </button>
+    </div>
+  </div>
+</div>

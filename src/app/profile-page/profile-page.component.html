@@ -1,0 +1,303 @@
+<div class="container-fluid">
+  <div class="border-bottom my-3">
+    <button *ngIf="profileData.userName!==undefined && profileData.userName!==''"
+            class="btn btn-danger float-right" (click)="onDelete()">
+      Delete Account
+    </button>
+    <h1 class="text-center"><a class="text-decoration-none heading" routerLink="/"><img class="logo"
+                                                                                        src="../../assets/img/logo.png"/>
+      HouseHunters.com</a></h1>
+  </div>
+</div>
+<div class="container">
+  <div *ngIf="profileData.userName!==undefined && profileData.userName!==''">
+    <h2>Profile</h2>
+    <!--EDITABLE FORM, HIDDEN WHEN NOT EDITING-->
+    <div [hidden]="editing === false">
+      <form name="updateForm" [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+        <div class="border mb-3">
+          <h5 class="ml-3 mt-2">Personal Info</h5>
+          <hr>
+          <div class="form-group row ml-0">
+            <label for="firstName" class="col-sm-2 col-form-label">
+              First Name* </label>
+            <div class="col-sm-9">
+              <input class="form-control"
+                     id="firstName"
+                     formControlName="firstName"
+                     type="text"/>
+              <div
+                [hidden]="!updateForm.controls['firstName'].errors || updateForm.controls['firstName'].pristine"
+                class="error-text">
+                Enter a name
+              </div>
+            </div>
+          </div>
+          <div class="form-group row ml-0">
+            <label for="lastName" class="col-sm-2 col-form-label">
+              Last Name* </label>
+            <div class="col-sm-9">
+              <input class="form-control"
+                     id="lastName"
+                     formControlName="lastName"
+                     type="text"/>
+              <div
+                [hidden]="!updateForm.controls['lastName'].errors || updateForm.controls['lastName'].pristine"
+                class="error-text">
+                Enter a name
+              </div>
+            </div>
+          </div>
+          <div class="form-group row ml-0">
+            <label for="zipCode" class="col-sm-2 col-form-label">
+              Zip Code </label>
+            <div class="col-sm-9">
+              <input class="form-control"
+                     id="zipCode"
+                     type="text"
+                     formControlName="zipCode"
+                     value="{{profileData.zipCode}}"
+                     maxlength="5">
+              <div
+                [hidden]="!updateForm.controls['zipCode'].errors || !updateForm.controls['zipCode'].touched"
+                class="error-text">
+                Enter a valid 5 digit zipcode
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="border mb-3">
+          <h5 class="ml-3 mt-2">Contact Info</h5>
+          <hr>
+          <div class="form-group row ml-0">
+            <label for="email" class="col-sm-2 col-form-label">
+              Email* </label>
+            <div class="col-sm-9">
+              <input class="form-control"
+                     id="email"
+                     formControlName="email"
+                     type="email">
+              <div
+                [hidden]="!updateForm.controls['email'].errors || !updateForm.controls['email'].touched"
+                class="error-text">
+                Enter a valid email
+              </div>
+            </div>
+          </div>
+          <div class="form-group row ml-0">
+            <label for="phone" class="col-sm-2 col-form-label">
+              Phone </label>
+            <div class="col-sm-9">
+              <input class="form-control"
+                     id="phone"
+                     type="tel"
+                     value="{{profileData.phone}}"
+                     formControlName="phone">
+              <div
+                [hidden]="!updateForm.controls['phone'].errors || !updateForm.controls['phone'].touched"
+                class="error-text">
+                Phone number must use the following pattern: 123-456-7890
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="border mb-3">
+          <h5 class="ml-3 mt-2">Account Info</h5>
+          <hr>
+          <div class="form-group row ml-0">
+            <label for="username" class="col-sm-2 col-form-label">
+              Username* </label>
+            <div class="col-sm-9">
+              <input readonly
+                     class="form-control-plaintext"
+                     id="userName"
+                     value="{{profileData.userName}}"
+                     type="username">
+            </div>
+          </div>
+          <div class="form-group row ml-0">
+            <label for="password" class="col-sm-2 col-form-label">
+              Password* </label>
+            <div class="col-sm-9">
+              <input class="form-control"
+                     id="password"
+                     formControlName="password"
+                     type="password">
+              <div
+                [hidden]="!updateForm.controls['password'].errors || !updateForm.controls['password'].touched"
+                class="error-text">
+                Enter a password containing 6 characters or greater
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label"></label>
+          <div class="col-sm-10">
+            <button
+              id="submit"
+              type="submit"
+              class="btn btn-cancel btn-block btn-secondary"
+              [disabled]="!updateForm.valid">
+              Submit
+            </button>
+            <button
+              id="cancelBtn"
+              type="button"
+              class="btn btn-cancel btn-block btn-secondary"
+              (click)="clickCancel()">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!--NON-EDITABLE FORM, HIDDEN WHEN EDITING-->
+    <div [hidden]="editing === true">
+      <div [hidden]="isLandlord ===false">
+        <button class="btn btn-warning" routerLink="/create">Create Listing</button>
+        <br/>
+        <br/>
+        <br/>
+      </div>
+      <form>
+        <div class="border mb-3">
+          <h5 class="ml-3 mt-2">Personal Info</h5>
+          <hr>
+          <div class="form-group row ml-0">
+            <label for="neFirstName" class="col-sm-2 col-form-label">
+              First Name </label>
+            <div class="col-sm-10">
+              <input class="form-control-plaintext" readonly
+                     id="neFirstName"
+                     value="{{profileData.firstName}}"
+                     type="text"/>
+            </div>
+          </div>
+          <div class="form-group row ml-0">
+            <label for="neLastName" class="col-sm-2 col-form-label">
+              Last Name </label>
+            <div class="col-sm-10">
+              <input class="form-control-plaintext" readonly
+                     id="neLastName"
+                     value="{{profileData.lastName}}"
+                     type="text"/>
+            </div>
+          </div>
+          <div class="form-group row ml-0">
+            <label for="neZipCode" class="col-sm-2 col-form-label">
+              Zip Code </label>
+            <div class="col-sm-10">
+              <input class="form-control-plaintext" readonly
+                     id="neZipCode"
+                     type="number"
+                     value="{{profileData.zipCode}}"
+                     maxlength="5">
+            </div>
+          </div>
+        </div>
+        <div class="border mb-3">
+          <h5 class="ml-3 mt-2">Contact Info</h5>
+          <hr>
+          <div class="form-group row ml-0">
+            <label for="neEmail" class="col-sm-2 col-form-label">
+              Email </label>
+            <div class="col-sm-10">
+              <input class="form-control-plaintext" readonly
+                     id="neEmail"
+                     value="{{profileData.email}}"
+                     type="email">
+            </div>
+          </div>
+          <div class="form-group row ml-0">
+            <label for="nePhone" class="col-sm-2 col-form-label">
+              Phone </label>
+            <div class="col-sm-10">
+              <input class="form-control-plaintext" readonly
+                     id="nePhone"
+                     type="tel"
+                     value="{{profileData.phone}}">
+            </div>
+          </div>
+        </div>
+        <div class="border mb-3">
+          <h5 class="ml-3 mt-2">Account Info</h5>
+          <hr>
+          <div class="form-group row ml-0">
+            <label for="neUserName" class="col-sm-2 col-form-label">
+              Username </label>
+            <div class="col-sm-10">
+              <input class="form-control-plaintext" readonly
+                     id="neUserName"
+                     type="username"
+                     value="{{profileData.userName}}">
+            </div>
+          </div>
+          <div class="form-group row ml-0">
+            <label for="nePassword" class="col-sm-2 col-form-label">
+              Password </label>
+            <div class="col-sm-10">
+              <input class="form-control-plaintext" readonly
+                     id="nePassword"
+                     type="password"
+                     value="{{profileData.password}}">
+            </div>
+          </div>
+        </div>
+        <button
+          id="editBtn"
+          type="button"
+          class="btn btn-cancel btn-block btn-success"
+          (click)="onEdit()">
+          Edit
+        </button>
+        <button
+          id="logoutBtn"
+          type="button"
+          class="btn btn-secondary btn-block"
+          (click)="onLogout()">
+          Logout
+        </button>
+      </form>
+    </div>
+  </div>
+  <!-- USER NOT LOGGED IN-->
+  <div *ngIf="profileData.userName===undefined || profileData.userName===''">
+    <div class="container">
+      <br/>
+      <br/>
+
+      <div class="row justify-content-center">
+        <div class="border border-success col-6">
+          <br/>
+          <div class="row justify-content-center">
+            <h3>Join HouseHunters</h3>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-10">
+              <button routerLink="/register" class="btn btn-success btn-block">Sign up</button>
+            </div>
+          </div>
+          <br/>
+        </div>
+      </div>
+
+      <br/>
+
+      <div class="row justify-content-center">
+        <div class="border border-secondary col-6">
+          <br/>
+          <div class="row justify-content-center">
+            <h3>Login to your account</h3>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-10">
+              <button routerLink="/login" class="btn btn-secondary btn-block">Login</button>
+            </div>
+          </div>
+          <br/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

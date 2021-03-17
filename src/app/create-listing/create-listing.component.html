@@ -1,0 +1,156 @@
+<app-header></app-header>
+<div class="container" *ngIf="pageLoad">
+  <form name="registerForm" [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+    <h1>Address</h1>
+    <div class="row">
+      <div class="col-12 col-sm-6 form-group"><label class="wbdv-lbl" for="txtAddress">Address Line 1<label
+        class="star">*</label></label>
+        <input type="text" class="form-control" placeholder="80 Tremont St " formControlName="addressLine1" [(ngModel)]="addressLine1"
+               id="txtAddress"/>
+        <div [hidden]="!updateForm.controls['addressLine1'].errors || !updateForm.controls['addressLine1'].touched" class="error-text">
+
+          <label class="star">Enter the address</label>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 form-group"><label class="wbdv-lbl" for="txtApt">Address Line 2</label>
+        <input type="text" class="form-control" placeholder="Unit 2A" formControlName="addressLine2" [(ngModel)]="addressLine2" id="txtApt"/>
+      </div>
+      <div class="col-12 col-sm-6 form-group"><label class="wbdv-lbl">State<label class="star">*</label></label>
+        <select (change)="onStateChange()" class="custom-select" formControlName="state" [(ngModel)]="property.state">
+          <option *ngFor="let state of states"
+                  [ngValue]="state.abbreviation">{{state.name}}</option>
+        </select>
+        <div [hidden]="!updateForm.controls['state'].errors || !updateForm.controls['state'].touched" class="error-text">
+          <label class="star">Enter the state </label>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 form-group"><label class="wbdv-lbl">City<label class="star">*</label></label>
+        <select (change)="onCityChanged()" class="custom-select" formControlName="city" [(ngModel)]="property.city">
+          <option *ngFor="let city of cityList"
+                  [ngValue]="city">{{city}}</option>
+        </select>
+        <div [hidden]="!updateForm.controls['city'].errors || !updateForm.controls['city'].touched" class="error-text">
+          <label class="star">Enter the city </label>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 form-group"><label class="wbdv-lbl">Neighbourhood<label class="star">*</label></label>
+        <select class="custom-select" formControlName="locality" [(ngModel)]="property.locality">
+          <option *ngFor="let locality of neighbourhoodList"
+                  [ngValue]="locality.name">{{locality.name}}</option>
+        </select>
+        <div [hidden]="!updateForm.controls['locality'].errors || !updateForm.controls['locality'].touched" class="error-text">
+          <label class="star">Enter the locality </label>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 form-group"><label class="wbdv-lbl" for="txtPostalCode">Postal Code<label
+        class="star">*</label></label>
+        <input type="text" class="form-control" formControlName="postal" [(ngModel)]="property.postal"
+               id="txtPostalCode" placeholder="02215"/>
+        <div [hidden]="!updateForm.controls['postal'].errors || !updateForm.controls['postal'].touched" class="error-text">
+          <label class="star">Enter valid postal code </label>
+        </div>
+      </div>
+    </div>
+    <h1>Details and description</h1>
+    <div class="row">
+      <div class="col-12 col-sm-6 form-group"><label class="wbdv-lbl" for="txtType">Type<label
+        class="star">*</label></label>
+        <input type="text"  placeholder="Condo" class="form-control" formControlName="type" [(ngModel)]="property.type" id="txtType"/>
+        <div [hidden]="!updateForm.controls['type'].errors || !updateForm.controls['type'].touched" class="error-text">
+          <label class="star">Enter valid property type</label>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 form-group"><label class="wbdv-lbl" for="txtYearBuilt">Year Built</label>
+        <input type="text" class="form-control" placeholder="1980" formControlName="builtYear" [(ngModel)]="property.builtYear"
+               id="txtYearBuilt"/>
+        <div [hidden]="!updateForm.controls['builtYear'].errors || !updateForm.controls['builtYear'].touched" class="error-text">
+          <label class="star">Enter valid year</label>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 form-group"><label class="wbdv-lbl" for="txtSalePrice">Sale Price<label
+        class="star">*</label></label>
+        <input type="text" placeholder="187000" class="form-control" formControlName="amount" [(ngModel)]="property.amount"
+               id="txtSalePrice"/>
+        <div [hidden]="!updateForm.controls['amount'].errors || !updateForm.controls['amount'].touched" class="error-text">
+          <label class="star">Enter valid sale price</label>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 form-group"><label class="wbdv-lbl" for="txtDate">Date Available</label>
+        <input type="date" formControlName="dateAvailable" class="form-control" [(ngModel)]="property.dateAvailable"
+               id="txtDate"/>
+      </div>
+      <div class="col-12 col-sm-6 form-group"><label class="wbdv-lbl" for="ddBeds">Beds<label
+        class="star">*</label></label>
+        <select class="form-control" formControlName="bed" id="ddBeds" [(ngModel)]="property.bed">
+          <option>0</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+        </select>
+        <div [hidden]="!updateForm.controls['bed'].errors || !updateForm.controls['bed'].touched" class="error-text">
+          <label class="star">Enter the number of bedrooms</label>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 form-group"><label class="wbdv-lbl" for="ddBath">Baths<label
+        class="star">*</label></label>
+        <select class="form-control" formControlName="bath" id="ddBath" [(ngModel)]="property.bath">
+          <option>1</option>
+          <option>1.5</option>
+          <option>2</option>
+          <option>2.5</option>
+          <option>3</option>
+          <option>3.5</option>
+          <option>4</option>
+          <option>4.5</option>
+          <option>5</option>
+          <option>5.5</option>
+          <option>5</option>
+        </select>
+        <div [hidden]="!updateForm.controls['bath'].errors || !updateForm.controls['bath'].touched" class="error-text">
+          <label class="star">Enter the number of bathrooms</label>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 form-group"><label class="wbdv-lbl" for="txtArea">Square Feet<label
+        class="star">*</label></label>
+        <input placeholder="1000" type="text" class="form-control" formControlName="size" [(ngModel)]="property.size" id="txtArea"/>
+        <div [hidden]="!updateForm.controls['size'].errors || !updateForm.controls['size'].touched" class="error-text">
+          <label class="star">Enter the valid sq feet</label>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 form-group"><label class="wbdv-lbl" for="txtDescription">Description<label
+        class="star">*</label></label>
+        <textarea placeholder="Description about your property." class="form-control" formControlName="description" [(ngModel)]="property.description"
+                  id="txtDescription" rows="3"></textarea>
+        <div [hidden]="!updateForm.controls['description'].errors || !updateForm.controls['description'].touched" class="error-text">
+          <label class="star">Enter valid description</label>
+        </div>
+      </div>
+    </div>
+    <h1>Amenities and rules</h1>
+    <div class="row">
+      <div class="col-12 col-sm-6 "><label class="wbdv-lbl" for="txtSalePrice">Amenities</label>
+        <div *ngFor="let amenity of amenities" class="form-group">
+          <div class="form-check">
+            <label class="form-check-label lbl"><input type="checkbox"
+                                                       (change)="amenity.checked = !amenity.checked"
+                                                       class="form-check-input"> {{amenity.name}}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6 ">
+        <button class="btn btn-success btn-lg btn-block" [disabled]="!updateForm.valid">Publish Listing
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

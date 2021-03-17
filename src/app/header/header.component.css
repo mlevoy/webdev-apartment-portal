@@ -1,0 +1,21 @@
+.logo{
+  width: 70px;
+  height: auto;
+}
+
+.heading {
+  font-family: 'Lobster', cursive;
+  color: limegreen;
+  cursor: pointer;
+}
+.btn-generic {
+  background: limegreen;
+  border-color: limegreen;
+  color: white;
+}
+
+#welcome {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -1,0 +1,81 @@
+<app-header></app-header>
+<div *ngIf="property" class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-sm-6 wbdv-property-image">
+      <ngb-carousel>
+        <ng-template ngbSlide data-interval="false">
+          <div class="picsum-img-wrapper">
+            <img src="../../assets/img/property1.jpg" alt="Random first slide">
+          </div>
+        </ng-template>
+        <ng-template ngbSlide data-interval="false">
+          <div class="picsum-img-wrapper">
+            <img src="../../assets/img/property3.jpg" alt="Random third slide">
+          </div>
+        </ng-template>
+      </ngb-carousel>
+    </div>
+    <div class="col-12 col-sm-6">
+      <div class="row">
+        <div class="col-6"><h1><label class="currency">${{property.amount | number}}</label></h1>
+        </div>
+        <div class="col-6"><span class="pull-right"><i (click)="onFavourite()" class="fa fa-2x"
+                                                       [class]="{'fa-heart-o': !isFavourite, 'fa-heart': isFavourite }"></i></span>
+        </div>
+        <div class="col-12">
+          <h3>{{property.address}} {{property.city}} {{property.state}} {{property.postal}}</h3>
+        </div>
+        <div class="col-12 col-sm-6 p-3 row">
+          <div class="col-4 "><span class="text-size">{{property.bed}} </span><i class="fa fa-bed"></i></div>
+          <div class="col-4 "><span class="text-size">{{property.bath}} </span><i class="fa fa-bath"></i></div>
+          <div class="col-4 "><span class="text-size">{{property.size}} sqft</span></div>
+        </div>
+        <div class="col-12">
+          <button class="btn btn-block wbdv-btn-request" (click)="open()" type="button">
+            Contact Seller
+          </button>
+        </div>
+        <div class="col-12 pt-1 mt-3 border-top">
+          <ul class="nav">
+            <li *ngFor="let tab of tabsList" class="nav-link" [class.active]="selectedTab === tab">
+              <a class="text-size" (click)="selectedTab = tab">{{tab}}</a></li>
+
+          </ul>
+          <div class="tab-content" id="tabs">
+            <div *ngIf="selectedTab === tabsList[0] " class="tab-pane active" id="Overview">
+              <span class="text-size">{{property.description}}</span></div>
+            <div *ngIf="selectedTab === tabsList[1]" class="tab-pane active" id="Facts">
+              <div class="row p-2">
+                <div class="col-sm-4 col-sm-4"><span class="text-size font-weight-bold"><i class="fa fa-home"></i> Type:</span>
+                </div>
+                <div class="col-12 col-sm-8"><span class="text-size">{{property.type}}</span></div>
+                <div class="col-sm-4 col-sm-4"><span class="text-size font-weight-bold"><i
+                  class="fa fa-street-view"></i> Locality:</span></div>
+                <div class="col-12 col-sm-8"><span class="text-size">{{property.locality}}</span></div>
+                <div class="col-sm-4 col-sm-4"><span class="text-size font-weight-bold"><i class="fa fa-calendar"></i> Year Built:</span>
+                </div>
+                <div class="col-12 col-sm-8"><span class="text-size">{{property.builtYear}}</span></div>
+                <div class="col-sm-4 col-sm-4"><span class="text-size font-weight-bold"><i class="fa fa-tags"></i> Price Per Sq Ft:</span>
+                </div>
+                <div class="col-12 col-sm-8"><span class="text-size">{{property.amount && property.amount / property.size | number}}</span>
+                </div>
+                <div class="col-sm-4 col-sm-4"><span class="text-size font-weight-bold"><i class="fa fa-hourglass"></i> Available:</span>
+                </div>
+                <div class="col-12 col-sm-8"><span
+                  class="text-size">{{property.dateAvailable | date:'shortDate'}}</span></div>
+                <div class="col-sm-4 col-sm-4"><span class="text-size font-weight-bold"><i
+                  class="fa  fa-calendar-times-o"></i> Posted:</span></div>
+                <div class="col-12 col-sm-8"><span class="text-size">{{property.datePosted | date:'shortDate'}}</span>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="selectedTab === tabsList[2]" class="tab-pane active" id="Amenities">
+              <span><ul><li *ngFor="let amenity of property.amenities" class="text-size">{{amenity}}</li> </ul></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

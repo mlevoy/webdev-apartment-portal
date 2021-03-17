@@ -1,0 +1,69 @@
+.logo {
+  width: 70px;
+  height: auto;
+}
+
+.heading {
+  font-family: 'Lobster', cursive;
+  color: limegreen;
+}
+
+
+.text-size {
+  font-size: 25px;
+}
+
+.fa-heart-o {
+  color: red;
+  cursor: pointer;
+}
+
+.wbdv-btn-contact {
+  color: forestgreen;
+}
+
+.nav-link {
+  font-weight: bold;
+  color: black;
+}
+
+.nav-link.active {
+  color: forestgreen;
+  border-bottom: 2px solid forestgreen;
+
+}
+
+.wbdv-btn-request {
+  color: white;
+  background: forestgreen;
+}
+
+.container-fluid {
+  font-family: 'Martel', serif;
+}
+
+a, span {
+  font-size: 20px;
+}
+
+ngb-carousel img {
+  width: 100%;
+  height: 570px;
+}
+
+.wbdv-property-image {
+  overflow: hidden;
+
+}
+
+.btn {
+  border-color: forestgreen;
+  font-size: 20px;
+}
+
+.fa-heart {
+  color: red;
+  cursor: pointer;
+}
+
+

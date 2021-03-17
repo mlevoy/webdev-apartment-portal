@@ -1,0 +1,165 @@
+<div class="container-fluid">
+  <div class="border-bottom my-3">
+    <h1 class="text-center"><a class="text-decoration-none heading" routerLink="/"><img class="logo" src="../../assets/img/logo.png"/>
+      HouseHunters.com</a></h1>
+  </div>
+</div>
+<div class="container">
+  <div *ngIf="status==400" class="alert alert-danger" role="alert">
+    User already exists!
+  </div>
+  <h1>Sign Up</h1>
+  <form name="registerForm" [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+    <div class="form-group row">
+      <label for="email" class="col-sm-2 col-form-label">
+        Email* </label>
+      <div class="col-sm-10">
+        <input class="form-control"
+               id="email"
+               formControlName="email"
+               type="email"
+               placeholder="johnsmith@abc.com">
+        <div [hidden]="!updateForm.controls['email'].errors || !updateForm.controls['email'].touched" class="error-text">
+          Enter a valid email
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+    <label for="firstName" class="col-sm-2 col-form-label">
+      First Name* </label>
+    <div class="col-sm-10">
+      <input class="form-control"
+             id="firstName"
+             formControlName="firstName"
+             type="text"
+             placeholder="John"/>
+      <div [hidden]="!updateForm.controls['firstName'].errors || updateForm.controls['firstName'].pristine" class="error-text">
+        Enter a name
+      </div>
+    </div>
+  </div>
+    <div class="form-group row">
+      <label for="lastName" class="col-sm-2 col-form-label">
+        Last Name* </label>
+      <div class="col-sm-10">
+        <input class="form-control"
+               id="lastName"
+               formControlName="lastName"
+               type="text"
+               placeholder="Smith"/>
+        <div [hidden]="!updateForm.controls['lastName'].errors || updateForm.controls['lastName'].pristine" class="error-text">
+          Enter a name
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="phone" class="col-sm-2 col-form-label">
+        Phone </label>
+      <div class="col-sm-10">
+        <input class="form-control"
+               id="phone"
+               type="tel"
+               formControlName="phone"
+               placeholder="123-456-7890">
+        <div [hidden]="!updateForm.controls['phone'].errors || !updateForm.controls['phone'].touched" class="error-text">
+          Phone number must use the following pattern: 123-456-7890
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="zipCode" class="col-sm-2 col-form-label">
+        Zip Code </label>
+      <div class="col-sm-10">
+        <input class="form-control"
+               id="zipCode"
+               type="text"
+               formControlName="zipCode"
+               maxlength="5"
+               placeholder="01234">
+        <div [hidden]="!updateForm.controls['zipCode'].errors || !updateForm.controls['zipCode'].touched" class="error-text">
+          Enter a valid 5 digit zipcode
+        </div>
+        </div>
+    </div>
+    <div class="form-group row">
+      <label for="username" class="col-sm-2 col-form-label">
+        Username* </label>
+      <div class="col-sm-10">
+        <input class="form-control"
+               id="userName"
+               type="username"
+               formControlName="userName"
+               placeholder="JohnnyS">
+        <div [hidden]="!updateForm.controls['userName'].errors || !updateForm.controls['userName'].touched" class="error-text">
+          Enter a username
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="password" class="col-sm-2 col-form-label">
+        Password* </label>
+      <div class="col-sm-10">
+        <input class="form-control"
+               id="password"
+               type="password"
+               formControlName="password"
+               placeholder="123qwe#$%">
+        <div [hidden]="!updateForm.controls['password'].errors || !updateForm.controls['password'].touched" class="error-text">
+          Enter a password containing 6 characters or greater
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="verifyPassword" class="col-sm-2 col-form-label">
+        Verify Password* </label>
+      <div class="col-sm-10">
+        <input class="form-control"
+               id="verifyPassword"
+               type="password"
+               formControlName="verifyPassword"
+               placeholder="123qwe#$%"/>
+        <div [hidden]="!updateForm.controls['verifyPassword'].errors || !updateForm.controls['verifyPassword'].touched" class="error-text">
+          Verified password must match the above password
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="customerType" class="col-sm-2 col-form-label">Account Type*</label>
+      <div class="col-sm-10">
+      <select id="customerType" name="rType" class="form-control col-md-4" formControlName="customerType">
+        <option value="BUYER" selected>House Hunter</option>
+        <option value="LANDLORD">House Seller</option>
+      </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label"></label>
+      <div class="col-sm-10">
+        <button
+          type="submit"
+          id="registerBtn"
+          class="btn btn-register btn-block btn-secondary"
+          [disabled]="!updateForm.valid">
+          Sign up
+        </button>
+        <button
+          id="cancelBtn"
+          type="button"
+          class="btn btn-cancel btn-block btn-secondary"
+          routerLink="/search">
+          Cancel
+        </button>
+        <div class="row">
+<!--          <div class="col-12">-->
+<!--            <a routerLink="/login" id="login" class="wbdv-link wbdv-login">Login</a>-->
+<!--          </div>-->
+          <div class="col-6">
+          </div>
+          <div class="col-6">
+            <a routerLink="/login" id="login" class="float-right">Login</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

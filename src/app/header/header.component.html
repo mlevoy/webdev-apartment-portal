@@ -1,0 +1,14 @@
+<button  *ngIf="user.userName===''" class="btn btn-generic  float-right" type="button" routerLink="/login">
+  Sign in
+</button>
+<div  *ngIf="user.userName!==''" class="float-right">
+  <h6 id="welcome" routerLink="/profile"> Welcome  {{user.userName}} </h6>
+  <button class="btn btn-danger float-right" (click)="onLogout()">
+    Logout
+  </button>
+</div>
+<div class="border-bottom my-3">
+  <h1 class="text-center"><a class="text-decoration-none heading" routerLink="/"><img class="logo" src="../../assets/img/logo.png"/>
+    HouseHunters.com</a></h1>
+</div>
+
